@@ -10,5 +10,12 @@ class TestLeafNode(unittest.TestCase):
             "<p>This is a paragraph of text.</p>"
         )
 
+    def test_render_props(self):
+        node = LeafNode("a", "Click me!", {"href": "https://www.google.com"})
+        self.assertEqual(
+            node.to_html(),
+            "<a href=\"https://www.google.com\">Click me!</a>"
+            )
+
 if __name__ == "__main__":
     unittest.main()
