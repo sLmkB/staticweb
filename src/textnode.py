@@ -1,5 +1,8 @@
 from htmlnode import LeafNode
 
+from inline_markdown import split_nodes_delimiter
+
+
 class TextType:
     text_type_text = "text"
     text_type_bold = "bold"
@@ -44,4 +47,4 @@ def textnode_to_htmlnode(text_node: TextNode) -> LeafNode:
         case _:
             raise Exception(f"Text type {text_node.text_type} not supported in {repr(text_node)}")
     
-    
+
