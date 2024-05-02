@@ -1,7 +1,11 @@
 import unittest
 
 from textnode import TextNode, TextType
-from inline_markdown import split_nodes_delimiter
+from inline_markdown import (
+    split_nodes_delimiter,
+    extract_markdown_images,
+    extract_markdown_links
+)
 
 
 
@@ -48,8 +52,8 @@ class TestSplitNodesDelimiter(unittest.TestCase):
         text_type = TextType.text_type_italic
         expected_result = [
             TextNode("Hello, ", TextType.text_type_text),
-            TextNode(" world!", TextType.text_type_text),
             TextNode("bold", TextType.text_type_italic),
+            TextNode(" world!", TextType.text_type_text),
         ]
         result = split_nodes_delimiter(old_nodes, delimiter, text_type)
         self.assertEqual(result, expected_result)
@@ -62,7 +66,6 @@ class TestSplitNodesDelimiter(unittest.TestCase):
         with self.assertRaises(Exception) as context:
             split_nodes_delimiter(old_nodes, delimiter, text_type)
         self.assertIn(f"Node does not contain a valid markdown syntax {repr(old_nodes[0])}", str(context.exception))
-
 
 if __name__ == "__main__":
     unittest.main()

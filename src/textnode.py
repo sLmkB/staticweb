@@ -1,7 +1,5 @@
 from htmlnode import LeafNode
 
-from inline_markdown import split_nodes_delimiter
-
 
 class TextType:
     text_type_text = "text"
