@@ -5,6 +5,7 @@ from inline_markdown import (
     split_nodes_link,
     extract_markdown_links,
     extract_markdown_images,
+    text_to_textnodes
 )
 
 from textnode import (
@@ -168,6 +169,25 @@ class TestInlineMarkdown(unittest.TestCase):
                 TextNode(" with text that follows", TextType.text_type_text),
             ],
             new_nodes,
+        )
+
+    def test_text_to_textnodes(self):
+        text = "This is **text** with an *italic* word and a `code block` and an ![image](https://storage.googleapis.com/qvault-webapp-dynamic-assets/course_assets/zjjcJKZ.png) and a [link](https://boot.dev)"
+        new_nodes = text_to_textnodes(text)
+        self.assertListEqual(
+            [
+                TextNode("This is ", TextType.text_type_text),
+                TextNode("text", TextType.text_type_bold),
+                TextNode(" with an ", TextType.text_type_text),
+                TextNode("italic", TextType.text_type_italic),
+                TextNode(" word and a ", TextType.text_type_text),
+                TextNode("code block", TextType.text_type_code),
+                TextNode(" and an ", TextType.text_type_text),
+                TextNode("image", TextType.text_type_image, "https://storage.googleapis.com/qvault-webapp-dynamic-assets/course_assets/zjjcJKZ.png"),
+                TextNode(" and a ", TextType.text_type_text),
+                TextNode("link", TextType.text_type_link, "https://boot.dev"),
+            ], 
+            new_nodes
         )
 
 
